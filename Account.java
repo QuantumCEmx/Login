@@ -1,3 +1,9 @@
+// import org.json.simple.JSONArray;
+// import org.json.simple.JSONObject;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Account {
 
     private String Firstname;
@@ -69,4 +75,13 @@ public class Account {
         this.birthdate = birthdate;
     }
 
+    public JSONObject toJSON() {
+        JSONObject InsertData = new JSONObject();
+        InsertData.put( this.Firstname);
+        InsertData.put( this.lastname);
+        InsertData.put( this.id);
+        InsertData.put( this.password);
+        InsertData.put( this.birthdate);
+        return InsertData;
+    }
 }
