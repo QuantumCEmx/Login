@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
         accounts = new ArrayList<>();
-        dataUser data = new dataUser();
+        // dataUser data = new dataUser(accounts);
         int choice;
 
         do {

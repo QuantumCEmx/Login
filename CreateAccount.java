@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.io.IOException;
 import java.io.File;
+import java.io.FileWriter;
 import java.util.InputMismatchException;
 
 public class CreateAccount {
@@ -36,10 +37,16 @@ public class CreateAccount {
         String birthdate = scanner.nextLine();
 
         Account acc = new Account(Firstname, lastname, id, password, tel, birthdate);
-        JSONArray Account = new JSONArray();
-        Account.add(acc.toJSON());
-        accounts.add(acc);
+        JSONArray Jaccount = new JSONArray();
+        Jaccount.add(acc.toJSONs(acc));
         System.out.println("Your ID : " + acc.getId());
         new Menu(scanner, acc);
+
+        try (FileWriter fileWriter = new FileWriter("FileDB/Data.json")) {
+            fileWriter.write(Jaccount.toJSONString());
+            // System.out.println("BMI data written to Databmi.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

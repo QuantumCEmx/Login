@@ -1,5 +1,5 @@
-// import org.json.simple.JSONArray;
-// import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -75,13 +75,14 @@ public class Account {
         this.birthdate = birthdate;
     }
 
-    public JSONObject toJSON() {
+    public JSONObject toJSONs(Account acc) {
         JSONObject InsertData = new JSONObject();
-        InsertData.put( this.Firstname);
-        InsertData.put( this.lastname);
-        InsertData.put( this.id);
-        InsertData.put( this.password);
-        InsertData.put( this.birthdate);
+        InsertData.put("Firstname", acc.getFirstname());
+        InsertData.put("Lastname", acc.getLastname());
+        InsertData.put("Id", acc.getId());
+        InsertData.put("Password", acc.getPassword());
+        InsertData.put("Birthdate", acc.getBirthdate());
+        InsertData.put("Tel", acc.getTel());
         return InsertData;
     }
 }
