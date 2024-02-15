@@ -1,4 +1,4 @@
-public class Accout {
+public class Account {
 
     private String Firstname;
     private String lastname;
@@ -8,10 +8,10 @@ public class Accout {
     private String birthdate;
     
 
-    public Accout() {
+    public Account() {
     }
 
-    public Accout(String Firstname, String lastname, String id, String password, String tel, String birthdate) {
+    public Account(String Firstname, String lastname, String id, String password, String tel, String birthdate) {
         super();
         this.Firstname = Firstname;
         this.lastname = lastname;
