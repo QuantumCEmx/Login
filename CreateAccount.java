@@ -2,7 +2,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.InputMismatchException;
@@ -37,14 +41,27 @@ public class CreateAccount {
         String birthdate = scanner.nextLine();
 
         Account acc = new Account(Firstname, lastname, id, password, tel, birthdate);
-        JSONArray Jaccount = new JSONArray();
+        
+        File file = new File("FileDB/Data.json");
+        JSONArray Jaccount;
+        if (file.exists()) {
+            try {
+                String fileContent = new String(Files.readAllBytes(Paths.get("FileDB/Data.json")));
+                //chat
+                Jaccount = (JSONArray) JSONValue.parse(fileContent);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Jaccount = new JSONArray();
+            }
+        } else {
+            Jaccount = new JSONArray();
+        }
+
         Jaccount.add(acc.toJSONs(acc));
-        System.out.println("Your ID : " + acc.getId());
-        new Menu(scanner, acc);
+        accounts.add(acc);
 
         try (FileWriter fileWriter = new FileWriter("FileDB/Data.json")) {
             fileWriter.write(Jaccount.toJSONString());
-            // System.out.println("BMI data written to Databmi.json");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,49 +1,62 @@
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 public class Login {
-    public Login(Scanner scanner ,ArrayList<Account> accounts) {
+    public Login(Scanner scanner, ArrayList<Account> accounts) {
 
-        System.out.println("Enter Your Account ID : ");
-        scanner.nextLine();
-        String Id = scanner.nextLine();
-
-        System.out.println("Enter Your Password : ");
-        String Password = scanner.nextLine();
-
-        Account account = new Account();
-        boolean Exist = false;
+        boolean loginSuccessful = false;
+        Account account = null;
         
-        for(Account acc : accounts){
-            if(acc.getId().equals(Id) && acc.getPassword().equals(Password)){
-                System.out.println("Login successful!");
-                Exist = true;
-                account = acc;
-                new Menu(scanner, account);
+        while (!loginSuccessful) {
+            System.out.println("Enter Your Account ID : ");
+            String id = scanner.nextLine();
+            scanner.nextLine();
+
+            System.out.println("Enter Your Password : ");
+            String password = scanner.nextLine();
+
+            for (Account acc : loadAccountsFromJson()) {
+                // System.out.println(acc.getId() + acc.getFirstname() + acc.getPassword() + acc.getTel() );
+                if (acc.getId().endsWith(id)&&acc.getPassword().endsWith(password)) {
+                    System.out.println("Login successful!");
+                    loginSuccessful = true;
+                    account = acc;
+                    break; 
+                }
+            }
+            if (!loginSuccessful) {
+                System.out.println("Invalid ID or password. Please try again.");
             }
         }
-        if(Exist){
-            new Menu(scanner, account);
-        }else{
-            System.out.println("Invalid ID or password. Please try again.");
+        new Menu(scanner, account);
+
+    }
+     private ArrayList<Account> loadAccountsFromJson() {
+        ArrayList<Account> loadedAccounts = new ArrayList<>();
+
+        try {
+            JSONParser parser = new JSONParser();
+            Object obj = parser.parse(new FileReader("FileDB/Data.json"));
+
+            JSONArray jsonArray = (JSONArray) obj;
+
+            for (Object jsonObj : jsonArray) {
+                JSONObject jsonAccount = (JSONObject) jsonObj;
+
+                //Use Chat
+                Account account = Account.fromJSON(jsonAccount);
+                loadedAccounts.add(account);
+            }
+        } catch (IOException | org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
         }
 
-        
-        // for (Account acc : accounts) {
-        //     if (acc.getId().equals(Id) && acc.getPassword().equals(Password)) {
-        //         Exist = true;
-        //         account = acc;
-        //         break; // Break the loop once the account is found
-        //     }
-        // }
-        // if (Exist) {
-        //     System.out.println("Login successful!");
-        //     new Menu(scanner, account);
-        // } else {
-        //     System.out.println("Entered ID: " + Id);
-        //     System.out.println("Entered Password: " + Password);
-
-        //     System.out.println("Invalid ID or password. Please try again.");
-        // }
+        return loadedAccounts;
     }
 }

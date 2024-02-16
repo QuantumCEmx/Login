@@ -31,8 +31,8 @@ public class Account {
         return Firstname;
     }
 
-    public void setFirstname(String firstname) {
-        Firstname = firstname;
+    public void setFirstname(String Firstname) {
+        Firstname = Firstname;
     }
 
     public String getLastname() {
@@ -43,13 +43,15 @@ public class Account {
         this.lastname = lastname;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
+
+    public String getId() {
+        return (id != null) ? id : "";
+    }
+
+    
 
     public String getPassword() {
         return password;
@@ -84,5 +86,16 @@ public class Account {
         InsertData.put("Birthdate", acc.getBirthdate());
         InsertData.put("Tel", acc.getTel());
         return InsertData;
+    }
+    public static Account fromJSON(JSONObject json) {
+        String id = (String) json.get("Id");
+        String Firstname = (String) json.get("Firstname");
+        String lastname = (String) json.get("Lastname");
+        String password = (String) json.get("Password");
+        String tel = (String) json.get("Tel");
+        String birthdate = (String) json.get("Birthdate");
+
+        // Assuming you have a constructor in your Account class
+        return new Account(Firstname, lastname, id, password, tel, birthdate);
     }
 }
