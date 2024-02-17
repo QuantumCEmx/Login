@@ -1,6 +1,6 @@
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
+import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -98,4 +98,4 @@ public class Account {
         // Assuming you have a constructor in your Account class
         return new Account(Firstname, lastname, id, password, tel, birthdate);
     }
-}
+    }
