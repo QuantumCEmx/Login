@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static Scanner scanner;
-    private static ArrayList<Account> accounts;
+     Scanner scanner;
+    private  ArrayList<Account> accounts;
 
-    public static void main(String[] args) {
+    public  void main(String[] args) {
         scanner = new Scanner(System.in);
         accounts = new ArrayList<>();
         // dataUser data = new dataUser(accounts);

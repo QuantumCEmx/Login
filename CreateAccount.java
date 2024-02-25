@@ -75,7 +75,7 @@ public class CreateAccount {
         }
     }
 
-    public static String CheckUserInputStr(Scanner scanner) {
+    public  String CheckUserInputStr(Scanner scanner) {
         String input = " ";
         boolean Vinput = false;
         while (!Vinput) {
@@ -92,7 +92,7 @@ public class CreateAccount {
         return input;
     }
 
-    public static String CheckUserInputNum(Scanner scanner) {
+    public String CheckUserInputNum(Scanner scanner) {
         String input = " ";
         boolean Vinput = false;
         while (!Vinput) {
@@ -108,7 +108,7 @@ public class CreateAccount {
         return input;
     }
 
-    public static String CheckUserInputTel(Scanner scanner) {
+    public String CheckUserInputTel(Scanner scanner) {
         String input = "";
         boolean Vinput = false;
     
