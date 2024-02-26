@@ -40,11 +40,13 @@ public class test {
         System.out.println("-----------------");
 
         // เช็ควันที่ในรูปแบบ วว ดด ปป 
+        
         System.out.print("Enter a date (DD/MM/YYYY): ");
         String Birthdate = str.nextLine();
-        if(Validation.CheckBirthdate(Birthdate)){
-            System.out.println("Susses");
-        }
+        
+        Validation.getCheckBirthdate(Birthdate);
+        System.out.println("-----------------");
+
 
         
         

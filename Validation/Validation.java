@@ -2,7 +2,8 @@ package Validation;
 
 import java.util.Scanner;
 import java.time.LocalDate;
-// ดึงปีปัจจุบัน
+// ดึงปีปัจจุบัน คศ
+
 public class Validation {
 
     public Validation() {
@@ -10,7 +11,8 @@ public class Validation {
 
     public static boolean CheckMaxnum(String Num, int maxnum) {
         // String strint = Integer.toString(Num);
-        if (Num.length() == maxnum) {
+        int minpass = 6;
+        if (Num.length() == maxnum && Num.length() >= minpass) {
             return true;
         } else {
             System.out.println("Please Enter Number try again Max digit");
@@ -63,7 +65,7 @@ public class Validation {
     }
 
     public static boolean Checkpasswordequals(String pas, String Cpas, int maxnum) {
-
+        
         if (!pas.equals(Cpas)) {
             System.out.println("Not Matching ");
             return false;
@@ -80,7 +82,10 @@ public class Validation {
 
     public static boolean CheckBirthdate(String dates) {
         int currentYear = LocalDate.now().getYear();
-        if (dates.matches("\\d{2}/\\d{2}/\\d{4}+$")) {
+        String regex = "^(0[1-9]|[1-2][0-9]|3[0-1])/(0[1-9]|1[0-2])/(\\d{4})$";
+        // String regex2 = "^(0[1-9]|[1-2][0-9]|3[0-1])/(0[1-9]|1[0-2])/(\\d{4})$";
+
+        if (dates.matches(regex)) {
             // เช็ควัน 01-99 เช็ค เดือน 01-99 เช็คปี 01-99 และ ไม่มีอักษรพิเศษ
             String[] dateParts = dates.split("/"); 
             // สับสติง โดยแบ่งจาก / 
@@ -91,22 +96,69 @@ public class Validation {
             int year = Integer.parseInt(dateParts[2]);
             // แปลง เลขindex สาม จากการแบ่ง เป็นปี
 
+            // if(Validation.CheckLeapyear(year)){
+            //     //retrun true เลยเช็ค เดือน
+            //     if(month==02){
+            //         if(day<=29){
+            //             System.out.println("day 01 - 29 is true ");
+            //             return true;
+            //         }
+            //     }
+            // }else{
+            //     System.out.println("is not a leap year Unable to enter date 29");
+            //     return false;
+            // }
 
-            if (year < 1000 || year > currentYear) {
-                System.out.println("Please enter 4-digit year within the current year.");
-                return false;
+            if(Validation.CheckLeapyear(year) == true){
+                if(month==02){
+                    if(day<=29){
+                        System.out.println("day 01 - 29 is true ");
+                        return true;
+                    }else{
+                        System.out.println("day 01 - 29 Only ");
+
+                    }
+                }else{
+                    System.out.println("Save data");
+                }
+                
             }
-            
-        } else {
-            System.out.println(" Please enter a (DD/MM/YYYY).");
-            return false;
-        }
+            if(Validation.CheckLeapyear(year) == false){
+                if(month==02){
+                    if(day<=28){
+                        System.out.println("day 01 - 28 is true ");
+                        return true;
+                    }else{
+                        System.out.println("day 01 - 28 Only ");
 
+                    }
+                }else{
+                    System.out.println("Save datas");
+                }
+            }
         
+        }
+            return false;
     }
 
-    public
-
+    public static boolean CheckLeapyear(int y){
+        // หา leap year
+        int CS = LocalDate.now().getYear(); //ดึงปัจจุบัน คศ
+        // boolean ly = false;
+        if(y < CS || (y-543) >= 1925 || (y+543) >= 2468 && (y+543) <= 2566 ){
+            if((y+543)>=3000){
+                y = y - 543;
+            }
+            y=y+0;
+            boolean isLeapYear = (y%4==0);
+            isLeapYear = isLeapYear && (y % 100 != 0 || y % 400 == 0);
+            if (isLeapYear) {
+                System.out.println(y + " is a leap year.");
+                return true;
+              } 
+        }
+        return false;  
+    }
 
 
     public static boolean CheckOlyNum(Scanner Nums) {
@@ -191,6 +243,8 @@ public class Validation {
     }
 
     public static void getCheckBirthdate(String bd) {
-
+        if(Validation.CheckBirthdate(bd)){
+            // System.out.println("Susses");
+        }
     }
 }
