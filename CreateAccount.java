@@ -4,6 +4,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import Validation.Validation;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -13,24 +15,31 @@ import java.util.InputMismatchException;
 
 public class CreateAccount {
     public CreateAccount(Scanner scanner, ArrayList<Account> accounts) {
+        Scanner Nums = new Scanner(System.in);
+        Scanner str = new Scanner(System.in);
+        Object a = new Object();
 
         System.out.println("Enter Your Firstname :");
         scanner.nextLine();
-        String Firstname = CheckUserInputStr(scanner);
+        String Firstname = str.nextLine();
+        Validation.getCheckChar(Firstname);
+        
 
         System.out.println("Enter Your Lastname : ");
-        String lastname = CheckUserInputStr(scanner);
+        String lastname = str.nextLine();
+        Validation.getCheckChar(lastname);
 
         System.out.println("Enter Your id :");
-        String id = CheckUserInputNum(scanner);
+        String id = str.nextLine();
+        Validation.getCheckCharAndMaxnum(id, 13);
 
         System.out.println("Enter Your password :");
         // String password = CheckUserInputNum(scanner);
-        String password = scanner.nextLine();
+        // String password = scanner.nextLine();
 
         System.out.println("Enter Your Comfirm password :");
         // String Cfpassword = CheckUserInputNum(scanner);
-        String Cfpassword = scanner.nextLine();
+        // String Cfpassword = scanner.nextLine();
 
         if (!password.equals(Cfpassword)) {
             System.out.println("please Try Agin (Not Matching) \n");
