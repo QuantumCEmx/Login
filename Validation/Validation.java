@@ -199,8 +199,9 @@ public class Validation {
     }
 
     public static void getCheckBirthdate(String bd) {
-        if (Validation.CheckBirthdate(bd)) {
-            // System.out.println("Susses");
+        if (!Validation.CheckBirthdate(bd)) {
+            System.out.println("Fail makmak");
+            return;
         }
     }
 }

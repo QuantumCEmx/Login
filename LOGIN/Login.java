@@ -9,6 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Login {
+    public static final String Validation = null;
     public Login(Scanner scanner, ArrayList<Account> accounts) {
 
         boolean loginSuccessful = false;

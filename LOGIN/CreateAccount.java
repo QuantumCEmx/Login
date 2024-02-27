@@ -1,11 +1,10 @@
 package LOGIN;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-
-
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -23,37 +22,62 @@ public class CreateAccount {
         System.out.println("Enter Your Firstname :");
         scanner.nextLine();
         String Firstname = str.nextLine();
-        Validation.getCheckChar(Firstname);
-        
+        if(!Validation.getCheckChar(Firstname)){
+            System.out.println(" Firstname Fail");
+            return; // ไม่ทำการบันทึกข้อมูล
+        }
+        // Validation.getCheckChar(Firstname);
 
         System.out.println("Enter Your Lastname : ");
         String lastname = str.nextLine();
-        Validation.getCheckChar(lastname);
+        if(!Validation.getCheckChar(lastname)){
+            System.out.println(" lastname Fail");
+            return; // ไม่ทำการบันทึกข้อมูล
+        }
+        // Validation.getCheckChar(lastname);
 
         System.out.println("Enter Your id :");
         String id = str.nextLine();
-        Validation.getCheckCharAndMaxnum(id, 13);
+        if(!Validation.getCheckCharAndMaxnum(id, 13)){
+            System.out.println(" Id Card Fail");
+            return; // ไม่ทำการบันทึกข้อมูล
+        }
+        
+        // Validation.getCheckCharAndMaxnum(id, 13);
 
         System.out.println("Enter Your password :");
-        
+
         String password = str.nextLine();
 
         System.out.println("Enter Your Comfirm password :");
-        
+
         String Cfpassword = str.nextLine();
 
-        Validation.getCheckpasswordequals(password,Cfpassword,8);
+       if(!Validation.getCheckpasswordequals(password, Cfpassword, 8)){
+            System.out.println(" Password Fail");
+            return; // ไม่ทำการบันทึกข้อมูล
+       }
 
         System.out.println("Enter Your tel :");
         String tel = str.nextLine();
-        Validation.CheckUserInputTel(tel);
+        if(!Validation.CheckUserInputTel(tel)){
+            System.out.println(" Tel Fail");
+            return; // ไม่ทำการบันทึกข้อมูล
+        }
+        // Validation.CheckUserInputTel(tel);
 
         System.out.println("Enter Your birthdate ('dd','mm','yy') :");
         // String birthdate = CheckUserInputNum(scanner);
         String birthdate = scanner.nextLine();
-        Validation.getCheckBirthdate(birthdate);
+        if(!Validation.getCheckBirthdate(birthdate)){
+            System.out.println(" birthdate Fail");
+            return; // ไม่ทำการบันทึกข้อมูล
+        }
+        // Validation.ReCheckBirthdate(birthdate);
+        // Validation.getCheckBirthdate(birthdate);
 
         Account acc = new Account(Firstname, lastname, id, password, tel, birthdate);
+       
 
         File file = new File("FileDB/Data.json");
         JSONArray Jaccount;
@@ -71,7 +95,10 @@ public class CreateAccount {
         } else {
             Jaccount = new JSONArray();
         }
-
+        if (Validation.CheckIdInJson(Jaccount, accounts, id)) {
+            System.out.println("Id Card " + id + " have accounts");
+            return; // ไม่ทำการบันทึกข้อมูล
+        }
         Jaccount.add(acc.toJSONs(acc));
         // เพิ่มข้อมูลลง Jaccount (JSONArray)
         accounts.add(acc);
@@ -84,53 +111,4 @@ public class CreateAccount {
         }
     }
 
-    public  String CheckUserInputStr(Scanner scanner) {
-        String input = " ";
-        boolean Vinput = false;
-        while (!Vinput) {
-            input = scanner.nextLine();
-
-            if (!input.matches(".*\\d.*")) {
-                // ใช้ Regular Expression (regex)
-                // .*\\d.* ห้ามมีตัวเลขในString
-                Vinput = true;
-            } else {
-                System.out.println("Please Enter String try again");
-            }
-        }
-        return input;
-    }
-
-    public String CheckUserInputNum(Scanner scanner) {
-        String input = " ";
-        boolean Vinput = false;
-        while (!Vinput) {
-            input = scanner.nextLine();
-
-            if (input.matches("\\d+") && input.length() == 13) {
-                // ใช้ Regular Expression (regex)
-                Vinput = true;
-            } else {
-                System.out.println("Please Enter Number try again Or ID 13-digit");
-            }
-        }
-        return input;
-    }
-
-    public String CheckUserInputTel(Scanner scanner) {
-        String input = "";
-        boolean Vinput = false;
-    
-        while (!Vinput) {
-            input = scanner.nextLine();
-    
-            if (input.matches("0[0-9]{9}")) {
-                // ตรวจสอบว่าเป็นตัวเลข 10 หลัก และเริ่มต้นด้วย 0
-                Vinput = true;
-            } else {
-                System.out.println(" Number Phone 10-digit Or Your Number Phone Start 0 Please try again:");
-            }
-        }
-        return input;
-    }
 }

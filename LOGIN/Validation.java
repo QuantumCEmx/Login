@@ -1,7 +1,11 @@
 package LOGIN;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class Validation {
     public Validation(){}
@@ -113,10 +117,12 @@ public class Validation {
                         return true;
                     } else {
                         System.out.println("day 01 - 29 Only ");
+                        return false;
 
                     }
                 } else {
                     System.out.println("Save data");
+                    return true;
                 }
 
             }
@@ -127,10 +133,13 @@ public class Validation {
                         return true;
                     } else {
                         System.out.println("day 01 - 28 Only ");
+                        return false;
 
                     }
                 } else {
-                    System.out.println("Save datas");
+                    System.out.println("Save data");
+                    return true;
+
                 }
             }
 
@@ -162,22 +171,16 @@ public class Validation {
         return Nums.hasNextInt();
     }
 
-    public static void getCheckChar(String Strs) {
-        if (Validation.CheckChar(Strs)) {
-            System.out.println("succeed");
-        }
+    public static boolean getCheckChar(String Strs) {
+        return Validation.CheckChar(Strs);
     }
 
-    public static void getCheckCharAndMaxnum(String Cint, int maxnum) {
-        if (Validation.CheckCharAndMaxnum(Cint, maxnum)) {
-            System.out.println("succeed");
-        }
+    public static boolean getCheckCharAndMaxnum(String Cint, int maxnum) {
+        return Validation.CheckCharAndMaxnum(Cint, maxnum);
     }
 
-    public static void getCheckUserInputTel(String t) {
-        if (Validation.CheckUserInputTel(t)) {
-            System.out.println("Succeed");
-        }
+    public static boolean getCheckUserInputTel(String t) {
+        return Validation.CheckUserInputTel(t);
     }
 
     public static boolean getCheckMaxnum(String n, int m) {
@@ -185,22 +188,55 @@ public class Validation {
             System.out.println("Succeed");
             return true;
         } else {
-            System.out.println("Hi pass");
+            System.out.println("Pass Fail");
             return false;
 
         }
     }
 
-    public static void getCheckpasswordequals(String p, String cf, int mn) {
-        if (Validation.Checkpasswordequals(p, cf, mn)) {
+    public static boolean getCheckpasswordequals(String p, String cf, int mn) {
+        return Validation.Checkpasswordequals(p, cf, mn);
+    }
 
+    // public static void getCheckBirthdate(String bd) {
+    //     if (Validation.CheckBirthdate(bd)) {
+    //     }
+    // }
+
+    public static boolean getCheckBirthdate(String bd) {
+        return Validation.CheckBirthdate(bd);
+    }
+
+    // public static void ReCheckBirthdate(String bd){
+    //     if (!getCheckBirthdate(bd)) {
+    //         System.out.println("Un save Data Birthdate Fail");
+    //         return; 
+    //     }
+    // }
+
+    public static boolean CheckIdInJson(JSONArray jsonArray, ArrayList<Account> accounts, String idToCheck) {
+    // ตรวจสอบใน JSON array
+    for (Object obj : jsonArray) {
+        JSONObject jsonObject = (JSONObject) obj;
+        String idInFile = (String) jsonObject.get("Id");
+
+        // เปรียบเทียบ Id card
+        if (idToCheck.equals(idInFile)) {
+            return true; // พบ Id card ที่ซ้ำ
         }
     }
 
-    public static void getCheckBirthdate(String bd) {
-        if (Validation.CheckBirthdate(bd)) {
-            // System.out.println("Susses");
+    // ตรวจสอบใน ArrayList
+    for (Account acc : accounts) {
+        if (idToCheck.equals(acc.getId())) {
+            return true; // พบ Id card ที่ซ้ำ
         }
     }
+
+    return false; // ไม่พบ Id card ที่ซ้ำ
+}
+
+
+   
 }
 
