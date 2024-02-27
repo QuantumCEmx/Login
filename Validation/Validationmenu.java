@@ -1,6 +1,6 @@
-// เช็คพวกรับค่าเมนู
-displayMenu();
-System.out.println("Enter menu");
+// // เช็คพวกรับค่าเมนู
+// displayMenu();
+// System.out.println("Enter menu");
 if(Validation.CheckOlyNum(Nums)){
     // เรียกมาตรวจสอบค่าที่ผู้ใช้กรอก โดยผ่าน Scanner
     int choice = Nums.nextInt();
@@ -24,11 +24,11 @@ if(Validation.CheckOlyNum(Nums)){
 } else {
     System.out.println("Invalid input. Please enter a number.");
 }
-}
+// }
 
-public static void displayMenu() {
-    System.out.println("Welcome to Cinemax");
-    System.out.println("1. Create Account");
-    System.out.println("2. Login");
-    System.out.println("3. Exit");
-}
+// public static void displayMenu() {
+//     System.out.println("Welcome to Cinemax");
+//     System.out.println("1. Create Account");
+//     System.out.println("2. Login");
+//     System.out.println("3. Exit");
+// }

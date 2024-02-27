@@ -1,12 +1,11 @@
-import java.util.Scanner;
+package LOGIN;
+
 import java.time.LocalDate;
-// ดึงปีปัจจุบัน คศ
+import java.util.Scanner;
 
 public class Validation {
-
-    public Validation() {
-    }
-
+    public Validation(){}
+    
     public static boolean CheckMaxnum(String Num, int maxnum) {
         // String strint = Integer.toString(Num);
         int minpass = 6;
@@ -204,3 +203,4 @@ public class Validation {
         }
     }
 }
+

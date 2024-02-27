@@ -1,10 +1,11 @@
+package LOGIN;
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
-import Validation.Validation;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,24 +35,23 @@ public class CreateAccount {
         Validation.getCheckCharAndMaxnum(id, 13);
 
         System.out.println("Enter Your password :");
-        // String password = CheckUserInputNum(scanner);
-        // String password = scanner.nextLine();
+        
+        String password = str.nextLine();
 
         System.out.println("Enter Your Comfirm password :");
-        // String Cfpassword = CheckUserInputNum(scanner);
-        // String Cfpassword = scanner.nextLine();
+        
+        String Cfpassword = str.nextLine();
 
-        if (!password.equals(Cfpassword)) {
-            System.out.println("please Try Agin (Not Matching) \n");
-            return;
-        }
+        Validation.getCheckpasswordequals(password,Cfpassword,8);
 
         System.out.println("Enter Your tel :");
-        String tel = CheckUserInputTel(scanner);
+        String tel = str.nextLine();
+        Validation.CheckUserInputTel(tel);
 
         System.out.println("Enter Your birthdate ('dd','mm','yy') :");
         // String birthdate = CheckUserInputNum(scanner);
         String birthdate = scanner.nextLine();
+        Validation.getCheckBirthdate(birthdate);
 
         Account acc = new Account(Firstname, lastname, id, password, tel, birthdate);
 
